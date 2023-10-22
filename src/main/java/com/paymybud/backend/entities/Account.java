@@ -17,7 +17,7 @@ public class Account {
     private Integer id;
 
     @Column(name = "balance")
-    private Long balance;
+    private Integer balance;
 
     @Column(name = "iban", unique = true)
     private String iban;

@@ -25,8 +25,10 @@ public class AuthController {
     private final UserAuthenticationProvider userAuthenticationProvider;
 
     @PostMapping("/login")
-    public ResponseEntity<UserDto> login(@RequestBody @Valid CredentialsDto credentialsDto) {
+    public ResponseEntity<UserDto> login(@RequestBody CredentialsDto credentialsDto) {
+        System.out.println(credentialsDto);
         UserDto userDto = userService.login(credentialsDto);
+
         userDto.setToken(userAuthenticationProvider.createToken(userDto));
         return ResponseEntity.ok(userDto);
     }

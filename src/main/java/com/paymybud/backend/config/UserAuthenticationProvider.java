@@ -53,7 +53,8 @@ public class UserAuthenticationProvider {
                 .build();
 
         DecodedJWT decoded = verifier.verify(token);
-
+        System.out.println(token);
+        System.out.println(decoded);
         UserDto user = UserDto.builder()
                 .email(decoded.getSubject())
                 .firstName(decoded.getClaim("firstName").asString())
