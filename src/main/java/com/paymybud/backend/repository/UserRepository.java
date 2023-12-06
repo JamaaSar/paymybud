@@ -1,6 +1,7 @@
 package com.paymybud.backend.repository;
 
-import com.paymybud.backend.entities.User;
+import com.paymybud.backend.controller.AuthController;
+import com.paymybud.backend.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

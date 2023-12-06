@@ -4,7 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.paymybud.backend.dto.UserDto;
+import com.paymybud.backend.dto.UserDTO;
 import com.paymybud.backend.service.UserService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +32,7 @@ public class UserAuthenticationProvider {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    public String createToken(UserDto user) {
+    public String createToken(UserDTO user) {
         Date now = new Date();
         Date validity = new Date(now.getTime() + 3600000); // 1 hour
 
@@ -41,8 +41,8 @@ public class UserAuthenticationProvider {
                 .withSubject(user.getEmail())
                 .withIssuedAt(now)
                 .withExpiresAt(validity)
-                .withClaim("firstName", user.getFirstName())
-                .withClaim("lastName", user.getLastName())
+                .withClaim("firstname", user.getFirstname())
+                .withClaim("lastname", user.getLastname())
                 .sign(algorithm);
     }
 
@@ -53,12 +53,14 @@ public class UserAuthenticationProvider {
                 .build();
 
         DecodedJWT decoded = verifier.verify(token);
+
+        System.out.println("token");
         System.out.println(token);
         System.out.println(decoded);
-        UserDto user = UserDto.builder()
+        UserDTO user = UserDTO.builder()
                 .email(decoded.getSubject())
-                .firstName(decoded.getClaim("firstName").asString())
-                .lastName(decoded.getClaim("lastName").asString())
+                .firstname(decoded.getClaim("firstname").asString())
+                .lastname(decoded.getClaim("lastname").asString())
                 .build();
 
         return new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
@@ -72,7 +74,7 @@ public class UserAuthenticationProvider {
 
         DecodedJWT decoded = verifier.verify(token);
 
-        UserDto user = userService.findByEmail(decoded.getSubject());
+        UserDTO user = userService.findByEmail(decoded.getSubject());
 
         return new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
     }

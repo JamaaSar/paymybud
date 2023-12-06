@@ -1,10 +1,10 @@
-package com.paymybud.backend.controllers;
+package com.paymybud.backend.controller;
 
 
 import com.paymybud.backend.config.UserAuthenticationProvider;
-import com.paymybud.backend.dto.CredentialsDto;
-import com.paymybud.backend.dto.SignUpDto;
-import com.paymybud.backend.dto.UserDto;
+import com.paymybud.backend.dto.CredentialsDTO;
+import com.paymybud.backend.dto.SignUpDTO;
+import com.paymybud.backend.dto.UserDTO;
 import com.paymybud.backend.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,17 +25,16 @@ public class AuthController {
     private final UserAuthenticationProvider userAuthenticationProvider;
 
     @PostMapping("/login")
-    public ResponseEntity<UserDto> login(@RequestBody CredentialsDto credentialsDto) {
-        System.out.println(credentialsDto);
-        UserDto userDto = userService.login(credentialsDto);
+    public ResponseEntity<UserDTO> login(@RequestBody CredentialsDTO credentialsDto) {
+        UserDTO userDto = userService.login(credentialsDto);
 
         userDto.setToken(userAuthenticationProvider.createToken(userDto));
         return ResponseEntity.ok(userDto);
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<UserDto> register(@RequestBody @Valid SignUpDto user) {
-        UserDto createdUser = userService.register(user);
+    @PostMapping("/signup")
+    public ResponseEntity<UserDTO> signup(@RequestBody @Valid SignUpDTO user) {
+        UserDTO createdUser = userService.signup(user);
         createdUser.setToken(userAuthenticationProvider.createToken(createdUser));
         return ResponseEntity.created(URI.create("/users/" + createdUser.getId())).body(createdUser);
     }
