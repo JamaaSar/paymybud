@@ -5,6 +5,7 @@ import com.paymybud.backend.entity.*;
 import com.paymybud.backend.exceptions.BadRequestException;
 import com.paymybud.backend.mappers.UserMapper;
 import com.paymybud.backend.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,8 +25,9 @@ public class  UserService {
     private final PasswordEncoder passwordEncoder;
     private final TransactionService transactionService;
     private final AccountService accountService;
-
     private final UserMapper userMapper;
+    private static final int tax = (int) 0.005;
+
 
     public UserDTO login(CredentialsDTO credentialsDto) {
         User user = userRepository.findByEmail(credentialsDto.email())
@@ -102,7 +104,7 @@ public class  UserService {
             accountService.update(acc, acc.getBalance() + balance);
         }
     }
-
+    @Transactional
     public void send(Integer userId, TransfertDTO transfertDto) throws Exception {
         User user = userRepository.findById(userId).orElseThrow(() -> new BadRequestException("Unknown user"));
         User friend = userRepository.findByEmail(transfertDto.receiverEmail())
@@ -129,14 +131,17 @@ public class  UserService {
 
         }
 
-        accountService.update(acc, acc.getBalance() - transfertDto.amount());
+        accountService.update(acc,
+                acc.getBalance() - calculateTax(transfertDto.amount()));
         accountService.update(acc1, acc1.getBalance() + transfertDto.amount());
         transactionService.add(new TransactionDTO(transfertDto.amount(), transfertDto.message(),
                 TO_FRIEND, user,
                 friend));
 
         }
-
+    public Integer calculateTax(Integer amount){
+        return amount + amount*tax;
+    }
 
 
     public UserDTO findByEmail(String email) {

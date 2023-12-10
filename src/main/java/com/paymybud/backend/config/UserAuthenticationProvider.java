@@ -54,9 +54,6 @@ public class UserAuthenticationProvider {
 
         DecodedJWT decoded = verifier.verify(token);
 
-        System.out.println("token");
-        System.out.println(token);
-        System.out.println(decoded);
         UserDTO user = UserDTO.builder()
                 .email(decoded.getSubject())
                 .firstname(decoded.getClaim("firstname").asString())
