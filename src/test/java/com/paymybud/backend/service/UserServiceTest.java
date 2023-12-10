@@ -274,7 +274,7 @@ public class UserServiceTest {
         assertThrows(Exception.class,
                 () ->  userService.addFriend(1,"test12@gmail.com" ));
     }
-
+    @Test
     @DisplayName("ChargerAccount KO test")
     public void testChargerAccountKO() throws Exception {
 
@@ -285,9 +285,8 @@ public class UserServiceTest {
                 Optional.ofNullable(testUser));
         // Then.
         assertThrows(Exception.class,
-                () ->    userService.chargerAccount(1, 10000, "charger"));
+                () ->    userService.chargerAccount(1, 10000, "transfert"));
     }
-
     @DisplayName("ChargerAccount OK test")
     public void testChargerAccountOK() throws Exception {
         // Given.
@@ -298,10 +297,8 @@ public class UserServiceTest {
         doNothing().when(transactionService).add(new TransactionDTO(10, null,
                 TypeOfTransaction.TO_OWN_CART, testUser, testUser));
         userService.chargerAccount(1, 10, "charger");
-        // Then.
-//        verify(userRepository, times(1)).save(testUser);
+       verify(userService).chargerAccount(1, 10, "charger");
     }
-    @Test
     @DisplayName("ChargerAccount OK test")
     public void testChargerAccountNotTransfertOK() throws Exception {
         // Given.
@@ -311,7 +308,7 @@ public class UserServiceTest {
                 Optional.ofNullable(testUser));
         userService.chargerAccount(1, 10, "tirer");
         // Then.
-      //  verify(userRepository, times(1)).save(testUser);
+        verify(userRepository, times(1)).save(testUser);
     }
 
     @Test
