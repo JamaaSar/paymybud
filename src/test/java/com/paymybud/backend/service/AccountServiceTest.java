@@ -60,7 +60,7 @@ public class AccountServiceTest {
         // When.
         Account account1 = accountService.add(accountDto);
         // Then.
-assertNotNull(account1);    }
+        assertNotNull(account1);    }
 
     @Test
     @DisplayName("Get OK test")
