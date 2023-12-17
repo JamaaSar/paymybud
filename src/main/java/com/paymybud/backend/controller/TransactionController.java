@@ -17,7 +17,6 @@ public class TransactionController {
 
     @GetMapping("/sent/{id}")
     public ResponseEntity<Iterable<Transaction>> getTransfertByUserId(@PathVariable("id") Integer id) {
-        System.out.println("hi");
         return ResponseEntity.status(HttpStatus.OK)
                 .body(transactionService.getAllSentTransactionByUser(id));
     }

@@ -74,7 +74,7 @@ public class UserController {
         return ResponseEntity.ok().build();
 
     }
-    @Transactional
+
     @PostMapping("/{id}/send")
     public ResponseEntity send(@PathVariable("id") Integer userId,
                      @RequestBody @Valid TransfertDTO transfertDto) throws Exception {
