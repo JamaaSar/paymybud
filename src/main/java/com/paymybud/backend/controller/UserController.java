@@ -61,14 +61,14 @@ public class UserController {
 
     @PostMapping("/{id}/transfert/{balance}")
     public ResponseEntity transfererArgent(@PathVariable("id") Integer userId,
-                               @PathVariable("balance") Integer balance)
+                               @PathVariable("balance") Double balance)
             throws Exception {
         userService.chargerAccount(userId,balance, "transfert");
         return ResponseEntity.ok().build();
     }
     @PostMapping("/{id}/charger/{balance}")
     public ResponseEntity envoyerArgent(@PathVariable("id") Integer userId,
-                               @PathVariable("balance") Integer balance)
+                               @PathVariable("balance") Double balance)
             throws Exception {
         userService.chargerAccount(userId,balance, "charger");
         return ResponseEntity.ok().build();
@@ -78,14 +78,19 @@ public class UserController {
     @PostMapping("/{id}/send")
     public ResponseEntity send(@PathVariable("id") Integer userId,
                      @RequestBody @Valid TransfertDTO transfertDto) throws Exception {
+
         userService.send(userId, transfertDto);
         return ResponseEntity.ok().build();
 
     }
-    @GetMapping("/{id}/friends")
-    public void getAllFriendsByUser(@PathVariable("id") Integer id) {
-       // return ResponseEntity.status(HttpStatus.OK)
-        //    .body(userService.getAllFriendsByUser(id));
+    @DeleteMapping("/{id}/account/{accountId}")
+    public ResponseEntity deleteAccount(@PathVariable("id") Integer userId,
+                                        @PathVariable("accountId") Integer accountId)  {
+        System.out.println("ici");
+        userService.deleteAccount(userId,accountId);
+        return ResponseEntity.ok().build();
+
     }
+
 
 }

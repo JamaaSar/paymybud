@@ -76,16 +76,16 @@ public class UserServiceTest {
                 testUser.getPassword());
 
         account = new Account();
-        account.setBalance(1000);
+        account.setBalance(1000.0);
         account.setIban("test123");
 
-        accountDto = new AccountDTO(1000, "test123");
+        accountDto = new AccountDTO(1000.0, "test123");
 
         friendsAccount = new Account();
-        friendsAccount.setBalance(1000);
+        friendsAccount.setBalance(1000.0);
         friendsAccount.setIban("test1234");
 
-        friendsAccountDTO = new AccountDTO(1000, "test1234");
+        friendsAccountDTO = new AccountDTO(1000.0, "test1234");
 
         signUpDto  = new SignUpDTO(testUser.getFirstname(), testUser.getLastname(),
                 testUser.getEmail(), testUser.getPassword());
@@ -202,7 +202,7 @@ public class UserServiceTest {
     public void testAccountKO() {
 
         // Given.
-        AccountDTO account1 = new AccountDTO(0 , "");
+        AccountDTO account1 = new AccountDTO(0.0 , "");
         // When.
         when(userRepository.findById(1)).thenReturn(Optional.ofNullable(testUser));
         // Then.
@@ -285,7 +285,7 @@ public class UserServiceTest {
                 Optional.ofNullable(testUser));
         // Then.
         assertThrows(Exception.class,
-                () ->    userService.chargerAccount(1, 10000, "transfert"));
+                () ->    userService.chargerAccount(1, 10000.0, "transfert"));
     }
     @DisplayName("ChargerAccount OK test")
     public void testChargerAccountOK() throws Exception {
@@ -294,10 +294,10 @@ public class UserServiceTest {
         // When.
         when(userRepository.findById(1)).thenReturn(
                 Optional.ofNullable(testUser));
-        doNothing().when(transactionService).add(new TransactionDTO(10, null,
+        doNothing().when(transactionService).add(new TransactionDTO(10.0, null,
                 TypeOfTransaction.TO_OWN_CART, testUser, testUser));
-        userService.chargerAccount(1, 10, "charger");
-       verify(userService).chargerAccount(1, 10, "charger");
+        userService.chargerAccount(1, 10.0, "charger");
+       verify(userService).chargerAccount(1, 10.0, "charger");
     }
     @DisplayName("ChargerAccount OK test")
     public void testChargerAccountNotTransfertOK() throws Exception {
@@ -306,7 +306,7 @@ public class UserServiceTest {
         // When.
         when(userRepository.findById(1)).thenReturn(
                 Optional.ofNullable(testUser));
-        userService.chargerAccount(1, 10, "tirer");
+        userService.chargerAccount(1, 10.0, "tirer");
         // Then.
         verify(userRepository, times(1)).save(testUser);
     }
@@ -320,7 +320,7 @@ public class UserServiceTest {
                 Optional.ofNullable(testUser));
         // Then.
         assertThrows(Exception.class,
-                () ->  userService.chargerAccount(1, 10, "TEST"));
+                () ->  userService.chargerAccount(1, 10.0, "TEST"));
     }
 
     @DisplayName("ChargerAccount solde KO test")
@@ -333,7 +333,7 @@ public class UserServiceTest {
                 Optional.ofNullable(testUser));
         // Then.
         assertThrows(Exception.class,
-                () ->  userService.chargerAccount(1, 10000, "charger"));
+                () ->  userService.chargerAccount(1, 10000.0, "charger"));
     }
 
     @Test
@@ -515,13 +515,13 @@ public class UserServiceTest {
                 Optional.ofNullable(testUser));
         when(userRepository.findByEmail("testFriend@gmail.com")).thenReturn(
                 Optional.ofNullable(testFriend));
-        doNothing().when(transactionService).add(new TransactionDTO(10, null,
+        doNothing().when(transactionService).add(new TransactionDTO(10.0, null,
                 TypeOfTransaction.TO_FRIEND, testUser , testFriend));
 
-        userService.send(1, new TransfertDTO(10, null,
+        userService.send(1, new TransfertDTO(10.0, null,
                 testFriend.getEmail()));
         // Then.
-        verify(transactionService, times(1)).add(new TransactionDTO(10, null,
+        verify(transactionService, times(1)).add(new TransactionDTO(10.0, null,
                 TypeOfTransaction.TO_FRIEND, testUser, testFriend));
     }
 
@@ -540,7 +540,7 @@ public class UserServiceTest {
                 Optional.ofNullable(testFriend));
         // Then.
         assertThrows(Exception.class,
-                () ->   userService.send(1, new TransfertDTO(2000000,
+                () ->   userService.send(1, new TransfertDTO(2000000.0,
                         null,
                         testFriend.getEmail())));
     }
@@ -558,7 +558,7 @@ public class UserServiceTest {
 
         // Then.
         assertThrows(BadRequestException.class,
-                () ->   userService.send(1, new TransfertDTO(2000000,
+                () ->   userService.send(1, new TransfertDTO(2000000.0,
                         null,
                         "testFriend2@gmail.com")));
     }
@@ -575,7 +575,7 @@ public class UserServiceTest {
                 Optional.ofNullable(testFriend));
         // Then.
         assertThrows(Exception.class,
-                () ->   userService.send(1, new TransfertDTO(10, null,
+                () ->   userService.send(1, new TransfertDTO(10.0, null,
                         testFriend.getEmail())));
     }
 
@@ -593,7 +593,7 @@ public class UserServiceTest {
                 Optional.ofNullable(testFriend));
         // Then.
         assertThrows(Exception.class,
-                () ->   userService.send(1, new TransfertDTO(10, null,
+                () ->   userService.send(1, new TransfertDTO(10.0, null,
                         testFriend.getEmail())));
     }
     @Test
@@ -611,7 +611,7 @@ public class UserServiceTest {
                 Optional.ofNullable(testFriend));
         // Then.
         assertThrows(Exception.class,
-                () ->   userService.send(1, new TransfertDTO(10, null,
+                () ->   userService.send(1, new TransfertDTO(10.0, null,
                         testFriend.getEmail())));
     }
 

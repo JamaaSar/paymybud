@@ -14,7 +14,7 @@ public class Transaction {
     private Integer id;
 
     @Column(name = "amount")
-    private Integer amount;
+    private Double amount;
     @Column(name = "message")
     private String message;
     @Enumerated(EnumType.STRING)

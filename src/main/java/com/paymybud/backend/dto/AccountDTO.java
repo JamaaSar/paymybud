@@ -1,4 +1,4 @@
 package com.paymybud.backend.dto;
 
 
-public record AccountDTO(Integer balance, String iban){ }
+public record AccountDTO(Double balance, String iban){ }
