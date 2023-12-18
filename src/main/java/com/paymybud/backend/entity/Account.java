@@ -14,7 +14,7 @@ public class Account {
     private Integer id;
 
     @Column(name = "balance")
-    private Integer balance;
+    private Double balance;
 
     @Column(name = "iban")
     private String iban;

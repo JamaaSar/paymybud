@@ -26,7 +26,7 @@ public class  UserService {
     private final TransactionService transactionService;
     private final AccountService accountService;
     private final UserMapper userMapper;
-    private static final int tax = (int) 0.005;
+    private static final double tax =  0.005;
 
 
     public UserDTO login(CredentialsDTO credentialsDto) {
@@ -64,7 +64,15 @@ public class  UserService {
         user.setAccount(account);
         userRepository.save(user);
     }
+    public void deleteAccount(Integer userId,Integer accountId)  {
+        User user = userRepository.findById(userId).orElseThrow();
 
+
+        user.setAccount(null);
+        userRepository.save(user);
+        accountService.delete(accountId);
+
+    }
 
     public void addFriend(Integer userId, String friendEmail) throws Exception {
         User user = userRepository.findById(userId).orElseThrow(() -> new BadRequestException("Unknown user"));
@@ -85,7 +93,7 @@ public class  UserService {
         }
     }
 
-    public void chargerAccount(Integer userId, Integer balance,String type) throws Exception{
+    public void chargerAccount(Integer userId, Double balance,String type) throws Exception{
 
         User user = userRepository.findById(userId).orElseThrow(() -> new BadRequestException("Unknown user"));
         Account acc = user.getAccount();
@@ -139,7 +147,9 @@ public class  UserService {
                 friend));
 
         }
-    public Integer calculateTax(Integer amount){
+    public Double calculateTax(Double amount){
+        System.out.println(amount);
+        System.out.println(amount*tax);
         return amount + amount*tax;
     }
 

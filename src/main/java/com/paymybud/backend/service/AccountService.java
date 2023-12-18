@@ -28,14 +28,18 @@ public class AccountService {
     }
 
     public void delete(Integer id) {
+
+
+
         accountRepository.deleteById(id);
+
     }
 
     public Account get(Integer id) {
         return accountRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Unknown account"));
     }
-    public void update(Account account, Integer balance) {
+    public void update(Account account, Double balance) {
 
         account.setBalance(balance);
         accountRepository.save(account);

@@ -1,4 +1,4 @@
 package com.paymybud.backend.dto;
 
-public record TransfertDTO(Integer amount, String message, String receiverEmail) {
+public record TransfertDTO(Double amount, String message, String receiverEmail) {
 }

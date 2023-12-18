@@ -38,16 +38,16 @@ public class AccountServiceTest {
     public void setUp() {
 
         account = new Account();
-        account.setBalance(1000);
+        account.setBalance(1000.0);
         account.setIban("test123");
 
-        accountDto = new AccountDTO(1000, "test123");
+        accountDto = new AccountDTO(1000.0, "test123");
 
         friendsAccount = new Account();
-        friendsAccount.setBalance(1000);
+        friendsAccount.setBalance(1000.0);
         friendsAccount.setIban("test1234");
 
-        friendsAccountDTO = new AccountDTO(1000, "test1234");
+        friendsAccountDTO = new AccountDTO(1000.0, "test1234");
 
     }
 
@@ -119,7 +119,7 @@ public class AccountServiceTest {
         // Given.
 
         // When.
-        accountService.update(account,10);
+        accountService.update(account,10.0);
         // Then.
         verify(accountRepository, times(1)).save(account);
     }

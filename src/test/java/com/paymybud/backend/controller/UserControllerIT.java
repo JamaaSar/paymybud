@@ -94,7 +94,7 @@ public class UserControllerIT {
     @DisplayName("Login KO test")
     public void addAccountTest() throws Exception {
 
-        Integer balance = 100;
+        Double balance = 100.0;
         String iban = "iban1";
 
         mockMvc.perform(post("/api/v1/user/2/createAccount")
@@ -112,7 +112,7 @@ public class UserControllerIT {
     public void transfererArgentTest() throws Exception {
 
         Account account = new Account();
-        account.setBalance(1000);
+        account.setBalance(1000.0);
         account.setIban("iban");
         User user = userRepository.findById(1)
                 .orElseThrow(() -> new BadRequestException("Utilisateur inconnu"));
@@ -130,7 +130,7 @@ public class UserControllerIT {
     public void envoyerArgentTest() throws Exception {
 
         Account account = new Account();
-        account.setBalance(1000);
+        account.setBalance(1000.0);
         account.setIban("iban");
         User user = userRepository.findById(1)
                 .orElseThrow(() -> new BadRequestException("Utilisateur inconnu"));
@@ -146,14 +146,14 @@ public class UserControllerIT {
     @DisplayName("Login KO test")
     public void sendTest() throws Exception {
 
-        Integer amount = 100;
+        Double amount = 100.0;
         String description = "hi";
         String recieverEmail = "friend@gmail.com";
         Account account = new Account();
-        account.setBalance(1000);
+        account.setBalance(1000.0);
         account.setIban("iban");
         Account accountFr = new Account();
-        accountFr.setBalance(1000);
+        accountFr.setBalance(1000.0);
         accountFr.setIban("ibanFr");
         User user = userRepository.findById(1)
                 .orElseThrow(() -> new BadRequestException("Utilisateur inconnu"));

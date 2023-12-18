@@ -59,24 +59,24 @@ public class TransactionServiceTest {
 
         account = new Account();
         account.setId(1);
-        account.setBalance(1000);
+        account.setBalance(1000.0);
         account.setIban("test123");
         testUser.setAccount(account);
-        accountDto = new AccountDTO(1000, "test123");
+        accountDto = new AccountDTO(1000.0, "test123");
 
         friendsAccount = new Account();
         friendsAccount.setId(2);
-        friendsAccount.setBalance(1000);
+        friendsAccount.setBalance(1000.0);
         friendsAccount.setIban("test1234");
         testFriend.setAccount(friendsAccount);
-        friendsAccountDTO = new AccountDTO(1000, "test1234");
+        friendsAccountDTO = new AccountDTO(1000.0, "test1234");
         transaction.setReceiver(testFriend);
         transaction.setSender(testUser);
-        transaction.setAmount(10);
+        transaction.setAmount(10.0);
         transaction.setMessage(null);
         transaction.setTypeOfTransaction(TypeOfTransaction.TO_FRIEND);
 
-        transactionDto =  new TransactionDTO(10, null,
+        transactionDto =  new TransactionDTO(10.0, null,
                 TypeOfTransaction.TO_FRIEND, testUser, testFriend);
 
     }

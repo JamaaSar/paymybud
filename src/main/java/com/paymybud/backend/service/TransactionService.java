@@ -24,6 +24,7 @@ public class TransactionService {
     public void add(TransactionDTO transactionDto) {
         Transaction Transaction = new Transaction();
         Transaction.setTypeOfTransaction(transactionDto.typeOfTransaction());
+        Transaction.setMessage(transactionDto.message());
         Transaction.setAmount(transactionDto.amount());
         Transaction.setReceiver(transactionDto.receiver());
         Transaction.setSender(transactionDto.sender());

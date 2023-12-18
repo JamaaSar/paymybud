@@ -32,7 +32,7 @@ public class User {
     private String password;
     private String token;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch=FetchType.EAGER , cascade=CascadeType.ALL , orphanRemoval=true)
     @JoinColumn(name = "accountid")
     private Account account;
 
