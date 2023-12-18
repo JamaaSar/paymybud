@@ -1,0 +1,35 @@
+[
+  {
+    "_class": "com.paymybud.backend.entity.User",
+    "id": 1,
+    "firstName": "user",
+    "lastName": "user",
+    "email": "user@example.com",
+    "password": "$2a$10$RxnopIkoAEU6J7kLWKo7uuWZuESmD34aOJS372kQ3OhOlXwWoESMm",
+    "account":[]
+  },
+  {
+    "_class": "com.paymybud.backend.entity.User",
+    "id": 2,
+    "firstName": "user2",
+    "lastName": "user2",
+    "email": "user2@example.com",
+    "password": "$2a$10$RxnopIkoAEU6J7kLWKo7uuWZuESmD34aOJS372kQ3OhOlXwWoESMm",
+    "account":[],
+    "friends": [ {
+      "id": 1
+    } ]
+  },
+  {
+    "_class": "com.paymybud.backend.entity.User",
+    "id": 3,
+    "email": "user3@example.com",
+    "firstName": "user3",
+    "lastName": "user3",
+    "password": "$2a$10$RxnopIkoAEU6J7kLWKo7uuWZuESmD34aOJS372kQ3OhOlXwWoESMm",
+    "account":[],
+    "friends": [{
+      "id": 1
+    }]
+  }
+]
